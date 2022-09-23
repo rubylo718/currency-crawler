@@ -1,0 +1,19 @@
+{
+  "website": "台灣銀行牌告匯率",
+  "url": "https://rate.bot.com.tw/xrt?Lang=zh-TW",
+  "currencies":
+  [
+    {
+      "name": "USD 美金",
+      "xpath": "//*[@id=\"ie11andabove\"]/div/table/tbody/tr[1]/td[5]"
+    },
+    {
+      "name": "JPY 日圓",
+      "xpath": "//*[@id=\"ie11andabove\"]/div/table/tbody/tr[8]/td[5]"
+    },
+    {
+      "name": "EUR 歐元",
+      "xpath": "//*[@id=\"ie11andabove\"]/div/table/tbody/tr[15]/td[5]"
+    }
+  ]
+}
