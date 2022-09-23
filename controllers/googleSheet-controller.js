@@ -51,7 +51,32 @@ const googleController = {
     try {
       const response = (await sheets.spreadsheets.get(request)).data
       const sheetInfo = response.sheets
-      console.log(sheetInfo)
+      return sheetInfo
+    } catch (err) {
+      console.error('error', err)
+    }
+  },
+  addTab: async (title, auth) => {
+    const request = {
+      spreadsheetId: process.env.SPREADSHEET_ID,
+      resource: {
+        requests: [
+          {
+            addSheet: {
+              properties: {
+                title
+              }
+            }
+          }
+        ]
+      },
+      auth
+    }
+    try {
+      const response = (await sheets.spreadsheets.batchUpdate(request)).data
+      const sheetId = response.replies[0].addSheet.properties.sheetId
+      console.log(`new tab added. name: ${title}, id: ${sheetId}`)
+      return sheetId
     } catch (err) {
       console.error('error', err)
     }
