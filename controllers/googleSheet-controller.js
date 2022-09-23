@@ -16,10 +16,10 @@
 
 require('dotenv').config()
 const { google } = require('googleapis')
+const sheets = google.sheets('v4')
 
 const googleController = {
   listMySheet: (auth) => {
-    const sheets = google.sheets('v4')
     const tabTitle = 'hello'
     sheets.spreadsheets.values.get(
       {
@@ -40,8 +40,22 @@ const googleController = {
         }
       }
     )
+  },
+  getSheetTabs: async (auth) => {
+    const request = {
+      spreadsheetId: process.env.SPREADSHEET_ID,
+      ranges: [],
+      includeGridData: false,
+      auth
+    }
+    try {
+      const response = (await sheets.spreadsheets.get(request)).data
+      const sheetInfo = response.sheets
+      console.log(sheetInfo)
+    } catch (err) {
+      console.error('error', err)
+    }
   }
-
 }
 
 module.exports = googleController

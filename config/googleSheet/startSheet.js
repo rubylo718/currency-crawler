@@ -54,7 +54,8 @@ app.get('/oauth2callback', (req, res) => {
     client.credentials = tokens
     res.send('Authentication successful! Please return to the console.')
     server.close()
-    googleController.listMySheet(client)
+    // googleController.listMySheet(client)
+    googleController.getSheetTabs(client)
   })
 })
 const server = app.listen(3000, () => {
