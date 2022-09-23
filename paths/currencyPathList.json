@@ -1,6 +1,7 @@
 {
-  "website": "台灣銀行牌告匯率",
+  "urlTitle": "台灣銀行牌告匯率",
   "url": "https://rate.bot.com.tw/xrt?Lang=zh-TW",
+  "quotedDateXpath": "//*[@id=\"ie11andabove\"]/div/p[2]/span[2]", 
   "currencies":
   [
     {

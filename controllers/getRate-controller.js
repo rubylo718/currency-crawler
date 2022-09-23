@@ -9,6 +9,11 @@ const getRate = {
     try {
       await driver.get(website)
       await driver.sleep(1000)
+      const quotedDate = await driver.findElements(By.xpath(currencyPathList.quotedDateXpath))
+      for (const date of quotedDate) {
+        const timeText = await date.getText()
+        console.log(`牌價時間: ${timeText}`)
+      }
       for (const currency of currencies) {
         const data = await driver.findElements(By.xpath(currency.xpath))
         for (const item of data) {
