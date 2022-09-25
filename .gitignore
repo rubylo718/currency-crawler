@@ -10,4 +10,5 @@ node_modules
 
 .env
 chromedriver
-config/googleSheet/credentials.json
+credentials.json
+token.json

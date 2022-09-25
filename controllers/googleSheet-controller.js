@@ -1,4 +1,4 @@
-const { getSheetTabs, addTab } = require('../helpers/googleAPI-helpers')
+const { getSheetTabs, addTab } = require('../helpers/googleAPI-helper')
 
 const getCurrencyTab = async (auth) => {
   const currencyTab = { title: 'currency', id: null }
