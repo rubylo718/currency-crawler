@@ -25,7 +25,8 @@ const keyfile = path.join(__dirname, 'credentials.json')
 const keys = JSON.parse(fs.readFileSync(keyfile))
 const scopes = ['https://www.googleapis.com/auth/spreadsheets']
 
-const googleController = require('../../controllers/googleSheet-controller')
+const getCurrencyTab = require('../../controllers/googleSheet-controller')
+const app = express()
 
 // Create an oAuth2 client to authorize the API call
 const client = new google.auth.OAuth2(
@@ -40,10 +41,12 @@ this.authorizeUrl = client.generateAuthUrl({
   scope: scopes
 })
 
-// Open an http server to accept the oauth callback. In this
-// simple example, the only request to our webserver is to
-// /oauth2callback?code=<code>
-const app = express()
+const server = app.listen(3000, () => {
+  // open the browser to the authorize url to start the workflow
+  opn(this.authorizeUrl, { wait: false })
+})
+
+// Open an http server to accept the oauth callback
 app.get('/oauth2callback', (req, res) => {
   const code = req.query.code
   client.getToken(code, (err, tokens) => {
@@ -54,35 +57,7 @@ app.get('/oauth2callback', (req, res) => {
     client.credentials = tokens
     res.send('Authentication successful! Please return to the console.')
     server.close()
-    // googleController.listMySheet(client)
-    // googleController.getSheetTabs(client)
     getCurrencyTab(client)
   })
-})
-
-async function getCurrencyTab (auth) {
-  const currencyTab = { title: 'currency', id: null }
-  const onlineTabs = await googleController.getSheetTabs(auth)
-  onlineTabs.forEach(tab => {
-    if (tab.properties.title === currencyTab.title) {
-      // if tab "currency" existed, use the sheet id
-      console.log('tab existed')
-      currencyTab.id = tab.properties.sheetId
-    }
-  })
-  if (currencyTab.id === null) {
-    // if tab "currency" is not existed, create one
-    console.log(`tab "${currencyTab.title}" is not existed`)
-    try {
-      currencyTab.id = await googleController.addTab(currencyTab.title, auth)
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-  return currencyTab
 }
-
-const server = app.listen(3000, () => {
-  // open the browser to the authorize url to start the workflow
-  opn(this.authorizeUrl, { wait: false })
-})
+)
