@@ -65,7 +65,7 @@ const addTab = async (title, auth) => {
   }
 }
 
-const appendRows = async (array, auth) => {
+const appendRow = async (array, auth) => {
   const request = {
     spreadsheetId: process.env.SPREADSHEET_ID,
     range: 'currency',
@@ -87,9 +87,58 @@ const appendRows = async (array, auth) => {
   }
 }
 
+const insertRow = async (sheetId, auth) => {
+  const request = {
+    spreadsheetId: process.env.SPREADSHEET_ID,
+    resource: {
+      requests: [
+        {
+          insertRange: {
+            range: {
+              sheetId,
+              startRowIndex: 1,
+              endRowIndex: 2
+            },
+            shiftDimension: 'ROWS'
+          }
+        }
+      ]
+    },
+    auth
+  }
+  try {
+    await sheets.spreadsheets.batchUpdate(request)
+    console.log('row inserted')
+  } catch (err) {
+    console.error('error', err)
+  }
+}
+
+const writeRow = async (array, auth) => {
+  const request = {
+    spreadsheetId: process.env.SPREADSHEET_ID,
+    range: 'currency!2:2',
+    valueInputOption: 'USER_ENTERED',
+    resource: {
+      majorDimension: 'ROWS',
+      values: [array]
+    },
+    auth
+  }
+  try {
+    const response = (await sheets.spreadsheets.values.update(request)).data
+    const updatedRange = response.updatedRange
+    console.log(`updated ${updatedRange}`)
+  } catch (err) {
+    console.error('error', err)
+  }
+}
+
 module.exports = {
   listMySheet,
   getSheetTabs,
   addTab,
-  appendRows
+  appendRow,
+  insertRow,
+  writeRow
 }

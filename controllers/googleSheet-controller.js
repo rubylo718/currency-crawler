@@ -1,4 +1,4 @@
-const { getSheetTabs, addTab, appendRows } = require('../helpers/googleAPI-helper')
+const { getSheetTabs, addTab, insertRow, writeRow } = require('../helpers/googleAPI-helper')
 
 const currencyPathList = require('../paths/currencyPathList.json')
 const currencies = currencyPathList.currencies
@@ -9,8 +9,8 @@ const getCurrencyTab = async (auth) => {
   onlineTabs.forEach(tab => {
     if (tab.properties.title === currencyTab.title) {
       // if tab "currency" existed, use the sheet id
-      console.log('tab existed')
       currencyTab.id = tab.properties.sheetId
+      console.log(`tab existed id: ${currencyTab.id}`)
     }
   })
   if (currencyTab.id === null) {
@@ -22,18 +22,19 @@ const getCurrencyTab = async (auth) => {
       for (const currency of currencies) {
         currencyNameArray.push(currency.name)
       }
-      await appendRows(currencyNameArray, auth)
+      await writeRow(currencyNameArray, auth)
       console.log('new tab created')
     } catch (error) {
       console.log('error', error)
     }
   }
-  return currencyTab
+  return currencyTab.id
 }
 
-const updateGoogleSheet = async (resultArray, auth) => {
+const updateGoogleSheet = async (sheetId, resultArray, auth) => {
   try {
-    await appendRows(resultArray, auth)
+    await insertRow(sheetId, auth)
+    await writeRow(resultArray, auth)
   } catch (error) {
     console.log('error', error)
   }
