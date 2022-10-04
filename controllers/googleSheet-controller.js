@@ -1,4 +1,4 @@
-const { getSheetTabs, addTab, insertRow, writeRow } = require('../helpers/googleAPI-helper')
+const { getSheetTabs, addTab, appendRow, insertRow, writeRowTwo } = require('../helpers/googleAPI-helper')
 
 const currencyPathList = require('../paths/currencyPathList.json')
 const currencies = currencyPathList.currencies
@@ -22,8 +22,8 @@ const getCurrencyTab = async (auth) => {
       for (const currency of currencies) {
         currencyNameArray.push(currency.name)
       }
-      await writeRow(currencyNameArray, auth)
-      console.log('new tab created')
+      await appendRow(currencyNameArray, auth)
+      console.log('title added in new tab')
     } catch (error) {
       console.log('error', error)
     }
@@ -34,7 +34,7 @@ const getCurrencyTab = async (auth) => {
 const updateGoogleSheet = async (sheetId, resultArray, auth) => {
   try {
     await insertRow(sheetId, auth)
-    await writeRow(resultArray, auth)
+    await writeRowTwo(resultArray, auth)
   } catch (error) {
     console.log('error', error)
   }

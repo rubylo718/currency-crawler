@@ -47,7 +47,10 @@ const addTab = async (title, auth) => {
         {
           addSheet: {
             properties: {
-              title
+              title,
+              gridProperties: {
+                frozenRowCount: 1
+              }
             }
           }
         }
@@ -70,7 +73,7 @@ const appendRow = async (array, auth) => {
     spreadsheetId: process.env.SPREADSHEET_ID,
     range: 'currency',
     valueInputOption: 'USER_ENTERED',
-    insertDataOption: 'INSERT_ROWS',
+    insertDataOption: 'OVERWRITE',
     resource: {
       majorDimension: 'ROWS',
       range: 'currency',
@@ -93,13 +96,17 @@ const insertRow = async (sheetId, auth) => {
     resource: {
       requests: [
         {
-          insertRange: {
+          updateDimensionProperties: {
             range: {
               sheetId,
-              startRowIndex: 1,
-              endRowIndex: 2
+              dimension: 'COLUMNS',
+              startIndex: 0,
+              endIndex: 1
             },
-            shiftDimension: 'ROWS'
+            properties: {
+              pixelSize: 120
+            },
+            fields: 'pixelSize'
           }
         }
       ]
@@ -114,7 +121,7 @@ const insertRow = async (sheetId, auth) => {
   }
 }
 
-const writeRow = async (array, auth) => {
+const writeRowTwo = async (array, auth) => {
   const request = {
     spreadsheetId: process.env.SPREADSHEET_ID,
     range: 'currency!2:2',
@@ -140,5 +147,5 @@ module.exports = {
   addTab,
   appendRow,
   insertRow,
-  writeRow
+  writeRowTwo
 }
