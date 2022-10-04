@@ -65,7 +65,7 @@ const addTab = async (title, auth) => {
   }
 }
 
-const appendRows = async (resultArray, auth) => {
+const appendRows = async (array, auth) => {
   const request = {
     spreadsheetId: process.env.SPREADSHEET_ID,
     range: 'currency',
@@ -74,7 +74,7 @@ const appendRows = async (resultArray, auth) => {
     resource: {
       majorDimension: 'ROWS',
       range: 'currency',
-      values: [resultArray]
+      values: [array]
     },
     auth
   }
