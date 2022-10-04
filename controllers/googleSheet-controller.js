@@ -1,4 +1,4 @@
-const { getSheetTabs, addTab } = require('../helpers/googleAPI-helper')
+const { getSheetTabs, addTab, appendRows } = require('../helpers/googleAPI-helper')
 
 const getCurrencyTab = async (auth) => {
   const currencyTab = { title: 'currency', id: null }
@@ -22,4 +22,15 @@ const getCurrencyTab = async (auth) => {
   return currencyTab
 }
 
-module.exports = getCurrencyTab
+const updateGoogleSheet = async (resultArray, auth) => {
+  try {
+    await appendRows(resultArray, auth)
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
+module.exports = {
+  getCurrencyTab,
+  updateGoogleSheet
+}

@@ -1,19 +1,3 @@
-// Copyright 2018 Google LLC
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//    http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// This file is re-write by the sample file from Google
-// https://github.com/googleapis/google-api-nodejs-client/blob/main/samples/sheets/quickstart.js
-
 require('dotenv').config()
 const { google } = require('googleapis')
 const sheets = google.sheets('v4')
@@ -81,8 +65,31 @@ const addTab = async (title, auth) => {
   }
 }
 
+const appendRows = async (resultArray, auth) => {
+  const request = {
+    spreadsheetId: process.env.SPREADSHEET_ID,
+    range: 'currency',
+    valueInputOption: 'USER_ENTERED',
+    insertDataOption: 'INSERT_ROWS',
+    resource: {
+      majorDimension: 'ROWS',
+      range: 'currency',
+      values: [resultArray]
+    },
+    auth
+  }
+  try {
+    const response = (await sheets.spreadsheets.values.append(request)).data
+    const updatedRange = response.updates.updatedRange
+    console.log(`updated ${updatedRange}`)
+  } catch (err) {
+    console.error('error', err)
+  }
+}
+
 module.exports = {
   listMySheet,
   getSheetTabs,
-  addTab
+  addTab,
+  appendRows
 }

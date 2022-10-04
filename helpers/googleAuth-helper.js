@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2022 Google LLC
  *
@@ -29,8 +28,6 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 const TOKEN_PATH = path.join(process.cwd(), 'token.json')
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json')
-
-// const getCurrencyTab = require('../controllers/googleSheet-controller')
 
 /**
  * Reads previously authorized credentials from the save file.
