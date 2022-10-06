@@ -108,6 +108,17 @@ const insertRow = async (sheetId, auth) => {
             },
             fields: 'pixelSize'
           }
+        },
+        {
+          insertDimension: {
+            range: {
+              sheetId,
+              dimension: 'ROWS',
+              startIndex: 1,
+              endIndex: 2
+            },
+            inheritFromBefore: false
+          }
         }
       ]
     },
