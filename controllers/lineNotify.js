@@ -2,6 +2,7 @@ require('dotenv').config()
 const axios = require('axios')
 const FormData = require('form-data')
 const lineNotifyToken = process.env.LINE_NOTIFY_TOKEN
+const googleSheetId = process.env.SPREADSHEET_ID
 
 function lineNotify (resultArray) {
   const data = new FormData()
@@ -31,7 +32,8 @@ function resultToMsg (array) {
   /*
   resultArray example: ["2022/9/25 14:00", "31.4", "0.221", "31.3"]
   */
-  const msg = '\n牌價時間: ' + array[0] + '\nUSD 美金 即期賣出: ' + array[1] + '\nJPY 日圓 即期賣出: ' + array[2] + '\nEUR 歐元 即期賣出: ' + array[3]
+  let msg = '\n\n牌價時間: ' + array[0] + '\nUSD 美金 即期賣出: ' + array[1] + '\nJPY 日圓 即期賣出: ' + array[2] + '\nEUR 歐元 即期賣出: ' + array[3]
+  msg += `\n\nGoogle Sheet: https://docs.google.com/spreadsheets/d/${googleSheetId}`
   return msg
 }
 
