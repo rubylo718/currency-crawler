@@ -1,13 +1,17 @@
 # Javascript匯率爬蟲小工具
-((進行中))
-這是一個自主專案。
+這是一個自主練習專案。
 
 ## Target
-由於隔離政策與國外旅遊限制規定逐漸鬆綁，朋友們紛紛摩拳擦掌準備訂機票與換匯。嘗試使用爬蟲工具取得所需要的匯率資訊，加上自動化排程、Line通知功能，輕鬆取得資訊。
-
-## User Story
+使用爬蟲工具selenium-webdriver，取得銀行網頁上所需要的匯率資訊，將資訊自動存入Google Sheet中，加上自動化排程、背景執行、以及Line Notify通知資訊與結果。
 
 ## Getting Started
+一次性執行爬蟲
+
+`npm run start`
+
+依照所設定的排程執行爬蟲
+
+`npm run schedule`
 
 ## Main Packages
 
@@ -20,6 +24,8 @@ Crawler tool: selenium-webdriver @4.4.0
 Data storage: Google sheet via googleapis @105.0.0
 
 Scheduling: Cron @2.1.0
+
+Background process: pm2 @5.2.2
 
 ## Author
 
