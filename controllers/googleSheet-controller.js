@@ -10,7 +10,6 @@ const getCurrencyTab = async (auth) => {
     if (tab.properties.title === currencyTab.title) {
       // if tab "currency" existed, use the sheet id
       currencyTab.id = tab.properties.sheetId
-      console.log(`tab existed id: ${currencyTab.id}`)
     }
   })
   if (currencyTab.id === null) {
@@ -23,7 +22,6 @@ const getCurrencyTab = async (auth) => {
         currencyNameArray.push(currency.name)
       }
       await appendRow(currencyNameArray, auth)
-      console.log('title added in new tab')
     } catch (error) {
       console.log('error', error)
     }

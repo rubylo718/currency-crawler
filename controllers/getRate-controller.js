@@ -28,7 +28,6 @@ const getRate = {
           resultArray.push(text)
         }
       }
-      console.log('resultArray', resultArray)
       return resultArray
     } catch (error) {
       console.log('Error!', error)

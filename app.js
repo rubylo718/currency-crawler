@@ -6,7 +6,7 @@ const { getCurrencyTab, updateGoogleSheet } = require('./controllers/googleSheet
 const lineNotify = require('./controllers/lineNotify')
 const authorize = require('./helpers/googleAuth-helper')
 const app = express()
-const port = process.env.PORT || 8000
+const port = 8000
 
 const startCrawler = async () => {
   const driver = await new Builder().forBrowser('chrome').build()
