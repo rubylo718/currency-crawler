@@ -1,5 +1,6 @@
 # Javascript匯率爬蟲小工具
-這是一個自主練習專案。
+## Introduction
+這是一個自主練習專案。專案介紹請見[部落格文章](https://rubylo718.github.io/2022/11/06/JScrawler-1/)。專案概念參考[此系列文章](https://ithelp.ithome.com.tw/users/20103256/ironman/2940)。
 
 ## Target
 使用爬蟲工具selenium-webdriver，取得銀行網頁上所需要的匯率資訊，將資訊自動存入Google Sheet中，加上自動化排程、背景執行、以及Line Notify通知資訊與結果。
@@ -34,6 +35,6 @@ Scheduling: Cron @2.1.0
 
 Background process: pm2 @5.2.2
 
-## Author
+## License
 
-Ruby Lo
+Licensed under the MIT License, Copyright © 2022-present Ruby Lo
